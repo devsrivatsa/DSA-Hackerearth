@@ -1,0 +1,35 @@
+from itertools import permutations
+
+N = int(input())
+A = list(map(int, input().split(" ")))
+B = list(map(int, input().split(" ")))
+
+def get_no_of_ways(N,A,B):
+    if N == 1:
+        if A[0] == B[0]:
+            return 1
+        elif ((A[0] <= 0) and (B[0] <= 0)) or ((A[0]>0) and (B[0>0])):
+            return 'Infinite'
+        else:
+            return 1 
+    m1 = len([i for i in A if i < 0])
+    m2 = len([i for i in B if i < 0])
+
+    if (m1 != 0) and (m2 != 0):
+        return 'Infinite' 
+    if m1 != m2:
+        s1 = sum([i for i in A if i >= 0])
+        s2 = sum([i for i in B if i >= 0])
+        print(m1, s1, m2, s2)
+        if (((m1 > m2) and (s1 > s2)) or ((m2 > m1) and (s2 > s1))):
+            return 0
+        if abs(m1 - m2) == 1:
+            return 1
+        if (m2 == 2) and (m1 == 0):
+            diff = s1 - s2
+        if (m1 == 2) and (m2 == 0):            
+            diff = s2 - s1
+        #print(len([comb for comb in permutations(range(diff+1),2) if comb[0]+comb[1]==diff])+1)
+        return diff+1
+
+print(get_no_of_ways(N,A,B))
